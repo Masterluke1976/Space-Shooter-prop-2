@@ -53,6 +53,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _currentLasers;
 
+    private CameraShake _camerShake;
+
+    
+
 
     
 
@@ -66,6 +70,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
+        _camerShake = GameObject.Find("Main Camera").GetComponent<CameraShake>();
 
         //5.10 amount count 
         _currentLasers = _totalLasers;
@@ -112,11 +117,14 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             _speed *= _speedMultiplier;
+           
+            
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _speed = 3.5f;
+            
         }
     }
 
@@ -227,6 +235,7 @@ public class Player : MonoBehaviour
 
 
         _lives -= 1;
+        _camerShake.CamShake();
         
 
         if (_lives == 2)
@@ -270,6 +279,7 @@ public class Player : MonoBehaviour
 
     IEnumerator SpeedBoostPowerDownRoutine()
     {
+       
         yield return new WaitForSeconds(5.0f);
         _isSpeedBoostActive = false;
         _speed /= _speedMultiplier;
@@ -313,6 +323,15 @@ public class Player : MonoBehaviour
         if (_currentLasers < 1)
         {
             _currentLasers = 0;
+        }
+    }
+
+    public void AmmoActive()
+    {
+        _currentLasers = 15;
+        if (_uiManager != null)
+        {
+            _uiManager.UpdateAmmo(_currentLasers);
         }
     }
     
