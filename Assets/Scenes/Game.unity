@@ -162,7 +162,7 @@ MonoBehaviour:
   _leftEngine: {fileID: 1741218737}
   _rightEngine: {fileID: 340223871}
   _fireRate: 0.15
-  _lives: 3
+  _lives: 2
   _score: 0
   _laserSoundClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _shieldRenderer: {fileID: 962787831}
@@ -626,6 +626,7 @@ MonoBehaviour:
   - {fileID: 323268639250644071, guid: 60cd608b6b95c5e42b2054400d036b4e, type: 3}
   - {fileID: 604926300628426509, guid: 8028d6344381e36408e04c1fe68fc5d8, type: 3}
   - {fileID: 6196931929590560916, guid: 32e3f85d44fcef647b8ed399e2b2c16b, type: 3}
+  - {fileID: 9180686972248117009, guid: 0e6c3f28d337f184e82f0cf95b88cb99, type: 3}
 --- !u!4 &576984272
 Transform:
   m_ObjectHideFlags: 0
@@ -1309,6 +1310,8 @@ GameObject:
   - component: {fileID: 1385320166}
   - component: {fileID: 1385320165}
   - component: {fileID: 1385320168}
+  - component: {fileID: 1385320170}
+  - component: {fileID: 1385320169}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1442,6 +1445,38 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1385320169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385320164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2fab8cd1abbe84f8c82036549fa443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1385320170
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385320164}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1183e02692dd3c4e8e356cda5cb2994, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1587453167
 GameObject:
   m_ObjectHideFlags: 0

@@ -236,16 +236,9 @@ public class Player : MonoBehaviour
 
         _lives -= 1;
         _camerShake.CamShake();
-        
 
-        if (_lives == 2)
-        {
-            _leftEngine.SetActive(true);
-        }
-        else if (_lives == 1)
-        {
-            _rightEngine.SetActive(true);
-        }
+        CheckLives();
+       
 
         
         _uiManager.UpdateLives(_lives);
@@ -255,6 +248,24 @@ public class Player : MonoBehaviour
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
 
+        }
+    }
+    private void CheckLives()
+    {
+        if (_lives == 3)
+        {
+            _leftEngine.SetActive(false);
+            _rightEngine.SetActive(false);
+        }
+        else if (_lives == 2)
+        {
+            _leftEngine.SetActive(true);
+            _rightEngine.SetActive(false);
+        }
+        else if (_lives == 1)
+        {
+            _rightEngine.SetActive(true);
+            _leftEngine.SetActive(true);
         }
     }
 
@@ -333,6 +344,19 @@ public class Player : MonoBehaviour
         {
             _uiManager.UpdateAmmo(_currentLasers);
         }
+    }
+
+    public void HealthActive()
+    {
+      
+
+        if (_lives < 3)
+        {
+            _lives += 1;
+            _uiManager.UpdateLives(_lives);
+            CheckLives();
+        }
+
     }
     
 

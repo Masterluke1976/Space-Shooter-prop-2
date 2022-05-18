@@ -56,6 +56,9 @@ public class Powerup : MonoBehaviour
                     case 3:
                         player.AmmoActive();
                         break;
+                    case 4:
+                        player.HealthActive();
+                        break;
                     default:
                         Debug.Log("Default Value");
                         break;
