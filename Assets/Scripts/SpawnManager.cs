@@ -12,6 +12,10 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] powerups;
 
     private bool _stopSpawning = false;
+
+    
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +40,7 @@ public class SpawnManager : MonoBehaviour
 
         while (_stopSpawning == false)
         {
+            
             Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, postToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;

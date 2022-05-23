@@ -18,6 +18,15 @@ public class Enemy : MonoBehaviour
 
     private bool _isAlive = true;
 
+    [SerializeField]
+    private bool _moveHorizontaly = false;
+    private bool _moveRight = false;
+    private float _horizontalSpeed = 2;
+
+     
+   
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,12 +44,23 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("The Animator is NULL ");
         }
+
+        if (_moveHorizontaly == true)
+        {
+            StartCoroutine(SwitchDirectionRoutine());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
+        if (_moveHorizontaly == true)
+        {
+            MoveHorizontaly();
+        }
+         
+
 
         if (Time.time > _canFire && _isAlive == true)
         {
@@ -105,4 +125,25 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject, 2.6f);
         }
     }
+
+    void MoveHorizontaly()
+    {
+        if (_moveRight == true)
+            transform.Translate(new Vector3(1, 0, 0) * _horizontalSpeed * Time.deltaTime);
+        else if (_moveRight == false)
+            transform.Translate(new Vector3(-1, 0, 0) * _horizontalSpeed * Time.deltaTime);
+    }
+
+    IEnumerator SwitchDirectionRoutine()
+    {
+        while (_moveHorizontaly == true)
+        {
+            _moveRight = true;
+            yield return new WaitForSeconds(3);
+            _moveRight = false;
+            yield return new WaitForSeconds(3);
+        }
+    }
+
+   
 }

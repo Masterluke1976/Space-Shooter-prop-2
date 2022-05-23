@@ -55,6 +55,10 @@ public class Player : MonoBehaviour
 
     private CameraShake _camerShake;
 
+   
+
+    
+
     
 
 
@@ -74,6 +78,8 @@ public class Player : MonoBehaviour
 
         //5.10 amount count 
         _currentLasers = _totalLasers;
+
+        
        
 
         
@@ -114,11 +120,10 @@ public class Player : MonoBehaviour
     //thruster boost left shiftkey 5.10
     private void Calculatespeed()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift)) 
         {
             _speed *= _speedMultiplier;
-           
-            
+
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -358,6 +363,7 @@ public class Player : MonoBehaviour
         }
 
     }
+
     
 
 
