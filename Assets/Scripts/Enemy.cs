@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     private bool _moveRight = false;
     private float _horizontalSpeed = 2;
 
+    
+
      
    
 
@@ -124,6 +126,8 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.6f);
         }
+
+        
     }
 
     void MoveHorizontaly()
@@ -144,6 +148,8 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(3);
         }
     }
+
+    
 
    
 }

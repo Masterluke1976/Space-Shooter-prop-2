@@ -23,6 +23,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _ammoText;
 
+    //5.24
+    [SerializeField]
+    private int _maxAmmo = 15;
+
    
     
    
@@ -33,7 +37,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score:" + 0;
 
         //5.10
-        _ammoText.text = "Ammo:" + 15;
+        _ammoText.text = "Ammo:" + 15 + "/" + _maxAmmo; //5.24
 
 
         _gameOverText.gameObject.SetActive(false);
@@ -53,7 +57,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateAmmo(int ammo)
     {
-        _ammoText.text = "Ammo:" + ammo;
+        _ammoText.text = "Ammo:" + ammo + "/" + _maxAmmo; //5.24 added player ammo count current/max
     }
 
     public void UpdateLives(int currentLives)

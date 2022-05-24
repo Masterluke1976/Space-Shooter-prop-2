@@ -52,6 +52,8 @@ MonoBehaviour:
   _speed: 4
   _laserPrefab: {fileID: 1137102124625574934, guid: 12c6413e8ae76494cb430adaa36a4567, type: 3}
   _moveHorizontaly: 1
+  _enemyShieldVisual: {fileID: 0}
+  _isEnemeyShieldActive: 1
 --- !u!212 &1661182752841520732
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -94,7 +96,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3154912113cbb4a498df6f571c74e18c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.990566, g: 0.9672036, b: 0.9672036, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

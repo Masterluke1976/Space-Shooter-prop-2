@@ -1913,6 +1913,7 @@ MonoBehaviour:
   _gameOverText: {fileID: 1604927812}
   _restartText: {fileID: 1362294786}
   _ammoText: {fileID: 530860497}
+  _maxAmmo: 15
 --- !u!114 &1948727389
 MonoBehaviour:
   m_ObjectHideFlags: 0
