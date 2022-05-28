@@ -55,12 +55,7 @@ public class Player : MonoBehaviour
 
     private CameraShake _camerShake;
 
-
-
-   
-
     
-
     
 
 
@@ -109,7 +104,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-        //5.10
+        
         Calculatespeed();
         
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
@@ -365,6 +360,8 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    
 
     
 

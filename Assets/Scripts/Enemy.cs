@@ -23,6 +23,16 @@ public class Enemy : MonoBehaviour
     private bool _moveRight = false;
     private float _horizontalSpeed = 2;
 
+    //5.25 enemy shield
+    [SerializeField]
+    private GameObject _enemyShield;
+    [SerializeField]
+    private bool _enemyShieldActive = false;
+
+    
+
+    
+
     
 
      
@@ -51,6 +61,10 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(SwitchDirectionRoutine());
         }
+        //5.25 enemyshield
+        EnableShield();
+
+        
     }
 
     // Update is called once per frame
@@ -102,12 +116,27 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
-            _anim.SetTrigger("OnEnemyDeath");
-            _speed = 0;
-            _audioSource.Play();
-            _isAlive = false;
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.6f);
+            
+            if (_enemyShieldActive)
+            {
+                _enemyShield.SetActive(false);
+                _enemyShieldActive = false;
+            }
+            else
+            {
+                _anim.SetTrigger("OnEnemyDeath");
+                _speed = 0;
+                _audioSource.Play();
+                _isAlive = false;
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 2.6f);
+            }      
+
+            
+
+
+
+           
 
 
         }
@@ -115,19 +144,31 @@ public class Enemy : MonoBehaviour
         {
             Destroy(other.gameObject);
 
-            if (_player != null)
+            if (_enemyShieldActive)
             {
-                _player.AddScore(10);
+                _enemyShield.SetActive(false);
+                _enemyShieldActive = false;
             }
-            _anim.SetTrigger("OnEnemyDeath");
-            _speed = 0;
-            _audioSource.Play();
-            _isAlive = false;
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.6f);
+            else
+            {
+
+                if (_player != null)
+                {
+                    _player.AddScore(10);
+                }
+                _anim.SetTrigger("OnEnemyDeath");
+                _speed = 0;
+                _audioSource.Play();
+                _isAlive = false;
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 2.6f);
+            }
+         
         }
 
         
+
+
     }
 
     void MoveHorizontaly()
@@ -148,6 +189,31 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(3);
         }
     }
+
+    //5.25 enemyshield
+
+    private void EnableShield()
+    {
+        int randomPick = Random.Range(0, 6);
+
+       if(randomPick <= 4)
+       {
+          _enemyShield.SetActive(true);
+          _enemyShieldActive = true;
+       }
+       else
+        {
+            _enemyShield.SetActive(false);
+            _enemyShieldActive = false;
+        }
+        
+
+        
+    }
+
+
+
+  
 
     
 

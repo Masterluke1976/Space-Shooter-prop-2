@@ -27,6 +27,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private int _maxAmmo = 15;
 
+    [SerializeField]
+    private Slider _slider;
+
    
     
    
@@ -90,6 +93,12 @@ public class UIManager : MonoBehaviour
             _gameOverText.text = "";
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    //5.26
+    public void UpdateSlider(float fuel)
+    {
+        _slider.value = fuel;
     }
 
     

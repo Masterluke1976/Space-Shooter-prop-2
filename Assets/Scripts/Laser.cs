@@ -69,6 +69,14 @@ public class Laser : MonoBehaviour
             {
                 player.Damage();
             }
+            if (transform.parent.tag == ("laser"))
+            {
+                Destroy (transform.parent.gameObject);
+            }
+            Destroy(this.gameObject);
+            
+            
         }
+        
     }
 }
