@@ -13,17 +13,36 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private AudioClip _clip;
 
+    //5.28 c key pressed power up move to player 
+    private Player _player;
+    private Vector3 direction;
+    private float _speedC = 5; // when c key is pressed this moves the speed of the powerup
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       // get the player component
+       _player = GameObject.Find("Player").GetComponent<Player>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        //5.28 get key code for C
+        if (Input.GetKey(KeyCode.C)) 
+        {
+            direction = (_player.transform.position) - transform.position; 
+            direction = direction.normalized; 
+            transform.Translate(direction * _speedC * Time.deltaTime); 
+        }
+        else
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime); 
+        }
+        
+        
+        //transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
         if (transform.position.y < -4.5f)
         {
