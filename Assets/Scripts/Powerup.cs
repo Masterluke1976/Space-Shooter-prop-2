@@ -39,6 +39,7 @@ public class Powerup : MonoBehaviour
         else
         {
             transform.Translate(Vector3.down * _speed * Time.deltaTime); 
+
         }
         
         

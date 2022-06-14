@@ -39,8 +39,7 @@ public class UIManager : MonoBehaviour
     {
         _scoreText.text = "Score:" + 0;
 
-        //5.10
-        _ammoText.text = "Ammo:" + 15 + "/" + _maxAmmo; //5.24
+        _ammoText.text = "Ammo:" + 15 + "/" + _maxAmmo; 
 
 
         _gameOverText.gameObject.SetActive(false);
@@ -60,7 +59,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateAmmo(int ammo)
     {
-        _ammoText.text = "Ammo:" + ammo + "/" + _maxAmmo; //5.24 added player ammo count current/max
+        _ammoText.text = "Ammo:" + ammo + "/" + _maxAmmo; 
     }
 
     public void UpdateLives(int currentLives)
@@ -95,7 +94,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //5.26
+    
     public void UpdateSlider(float fuel)
     {
         _slider.value = fuel;

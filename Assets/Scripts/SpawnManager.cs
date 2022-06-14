@@ -9,12 +9,9 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
+
     [SerializeField]
     private GameObject[] powerups;
-
-    private bool _stopSpawning = false;
-
-    //5.24 wave system need variable for three waves
     [SerializeField]
     private GameObject[] _wave1;
     [SerializeField]
@@ -23,8 +20,10 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _wave3;
 
     private int _currentWave = 1;
-    
-    
+
+    private bool _stopSpawning = false;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +35,8 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
+
+        
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class SpawnManager : MonoBehaviour
     {
         Vector3 postToSpawn;
         yield return new WaitForSeconds(3.0f);
-        // 5.24
+        
         while (_stopSpawning == false)
         {
             //switch statements for waves
@@ -91,10 +92,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(2);
             _currentWave++;
-            //Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
-            //GameObject newEnemy = Instantiate(_enemyPrefab, postToSpawn, Quaternion.identity);
-            //newEnemy.transform.parent = _enemyContainer.transform;
-            //yield return new WaitForSeconds(5.0f);
+            
             
         }
         
@@ -117,6 +115,8 @@ public class SpawnManager : MonoBehaviour
     {
         _stopSpawning = true;
     }
+
+   
 
     
 }

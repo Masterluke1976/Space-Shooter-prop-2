@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
-    private float _speedMultiplier = 2;
+    private float _speedMultiplier = 10;
+    [SerializeField]
+    private float _maxFuel = 5f;
+    [SerializeField]
+    private float _currentFuel;
+    [SerializeField]
+    private float _fireRate = 0.5f;
+    private float _canFire = -1f;
 
-    
-      
 
     [SerializeField]
     private GameObject _laserPrefab;
@@ -20,50 +26,41 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _leftEngine, _rightEngine;
 
-    [SerializeField]
-    private float _fireRate = 0.5f;
-    private float _canFire = -1f;
 
     [SerializeField]
     private int _lives = 3;
-    private SpawnManager _spawnManager;
-    
+    private int _totalLasers = 15;
+    [SerializeField]
+    private int _currentLasers;
+    [SerializeField]
+    private int _score;
+    private int _shieldStrength = 3;
+
+
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShielsdActive = false;
 
-    [SerializeField]
-    private int _score;
 
-    private UIManager _uiManager;
+    
 
-    //variable for audio clip
     [SerializeField]
     private AudioClip _laserSoundClip;
     private AudioSource _audioSource;
 
-    //5.10 shield strength visual 3 hit
-
-    private int _shieldStrength = 3;
     [SerializeField]
     private SpriteRenderer _shieldRenderer;
 
-    //5.10 ammo count
-    private int _totalLasers = 15;
-    [SerializeField]
-    private int _currentLasers;
-
     private CameraShake _camerShake;
 
-    
-    
+    private SpawnManager _spawnManager;
+
+    public Slider ThrusterSlider;
+
+    private UIManager _uiManager;
 
 
-    
 
-    
-
-    
     // Start is called before the first frame update
     void Start()
     { 
@@ -73,11 +70,10 @@ public class Player : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _camerShake = GameObject.Find("Main Camera").GetComponent<CameraShake>();
 
-        //5.10 amount count 
-        _currentLasers = _totalLasers;
+        _currentFuel = _maxFuel;
+        ThrusterSlider.maxValue = _maxFuel;
 
-        
-       
+        _currentLasers = _totalLasers;
 
         
         if (_spawnManager == null)
@@ -105,29 +101,35 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         
-        Calculatespeed();
+       // Calculatespeed();
         
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
         }
 
-    }
 
-    //thruster boost left shiftkey 5.10
-    private void Calculatespeed()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) 
+        //6.14
+        if (Input.GetKey(KeyCode.LeftShift) && _currentFuel > 0) 
         {
-            _speed *= _speedMultiplier;
+            Debug.Log("Stamina down");
+            _speed = _speedMultiplier;
+            _currentFuel -= Time.deltaTime;
 
+  
         }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        else 
         {
             _speed = 3.5f;
-            
+            _currentFuel += Time.deltaTime;
         }
+
+        ThrusterSlider.value = _currentFuel;
+        if(_currentFuel >= 5)
+        {
+            _currentFuel = 5;
+        }
+
     }
 
     
@@ -168,8 +170,6 @@ public class Player : MonoBehaviour
     {
           _canFire = Time.time + _fireRate;
 
-        //5.10 ammo
-
         if (_currentLasers > 0)
         {
              if (_isTripleShotActive == true)
@@ -181,26 +181,10 @@ public class Player : MonoBehaviour
               Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
             }
 
-            
              _audioSource.Play();
              AmmoCount(1);
         }
 
-
-
-
-
-        // if (_isTripleShotActive == true)
-        // {
-        // Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
-        // }
-        //else
-        //{
-        // Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
-        // }
-
-        //play the laser audio clip
-        // _audioSource.Play();
     }
 
     public void Damage()
@@ -208,7 +192,7 @@ public class Player : MonoBehaviour
         
         if (_isShielsdActive == true)
         {
-            //5.10
+            
             _shieldStrength --;
             if (_shieldStrength == 2)
             {
@@ -228,11 +212,6 @@ public class Player : MonoBehaviour
                  return;
             }
 
-
-            // _isShielsdActive = false;
-            // _ShieldVisualizer.SetActive(false);
-            // disable the visualizer
-            // return;
         }
 
 
@@ -241,7 +220,6 @@ public class Player : MonoBehaviour
 
         CheckLives();
        
-
         
         _uiManager.UpdateLives(_lives);
 
@@ -303,13 +281,12 @@ public class Player : MonoBehaviour
        
         _isShielsdActive = true;
 
-        //5.10 turn shield on again 
         _shieldStrength = 3;
 
         _ShieldVisualizer.SetActive(true);
     }
 
-    //5.10 shield visulizer color
+    
     IEnumerator ShieldHitVisual()
     {
         _shieldRenderer.color = Color.red;
@@ -317,15 +294,13 @@ public class Player : MonoBehaviour
         _shieldRenderer.color = Color.white;
     }
 
-  
-
     public void AddScore(int points)
     {
         _score += points;
         _uiManager.UpdateScore(_score);
     }
 
-    //5.10 ammo count
+   
     private void AmmoCount(int amount)
     {
         _currentLasers -= amount;
@@ -351,7 +326,6 @@ public class Player : MonoBehaviour
     public void HealthActive()
     {
       
-
         if (_lives < 3)
         {
             _lives += 1;
@@ -360,6 +334,8 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    
 
     
 

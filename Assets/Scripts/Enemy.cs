@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     private GameObject _enemyShield;
     [SerializeField]
     private bool _enemyShieldActive = false;
+    [SerializeField]
+    private GameObject _enemyMissile;
 
     
 
