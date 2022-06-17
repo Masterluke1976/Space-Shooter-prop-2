@@ -23,11 +23,28 @@ public class SpawnManager : MonoBehaviour
 
     private bool _stopSpawning = false;
 
+    //6.15
+    [SerializeField]
+    private int[] _table = { 10, 10, 10, 50, 20 }; // triple shot, speed, shield, ammo, health
+    [SerializeField]
+    private int _total, _randomNumber;
+    [SerializeField]
+    private List<GameObject> _powerUps;
+
+    private bool _powerUpSpawn;
+
+    
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //6.15
+        foreach(var item in _table)
+        {
+            _total += item;
+        }
         
     }
 
@@ -42,7 +59,8 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+      //6.15
+      RestartPowerUpSpawnRoutine();
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -85,6 +103,7 @@ public class SpawnManager : MonoBehaviour
                         yield return new WaitForSeconds(5.0f);
                     }
                     break;
+                
                 default:
                     Debug.Log("No more Waves");
                     break;
@@ -107,7 +126,44 @@ public class SpawnManager : MonoBehaviour
             Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
             int randomPowerUp = Random.Range(0, powerups.Length);
             Instantiate(powerups[randomPowerUp], postToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(3, 8));
+            yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
+
+            //6.15
+            _randomNumber = Random.Range(0, _total);
+
+            if (_stopSpawning == true)
+            {
+                _powerUpSpawn = false;
+                yield break;
+            }
+            else
+            {
+                for (int i = 0; i < _table.Length; i++)
+                {
+                    if (_randomNumber <= _table[i])
+                    {
+                        Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
+                        Instantiate(_powerUps[i], posToSpawn, Quaternion.identity);
+                        _powerUpSpawn = true;
+
+                        yield break;
+                    }
+                    else
+                    {
+                        _randomNumber -= _table[i];
+                    }
+                }
+            }
+        }
+    }
+
+    //6.15
+    private void RestartPowerUpSpawnRoutine()
+    {
+        if (_powerUpSpawn == true)
+        {
+            _powerUpSpawn = false;
+            StartCoroutine(SpawnPowerupRoutine());
         }
     }
 

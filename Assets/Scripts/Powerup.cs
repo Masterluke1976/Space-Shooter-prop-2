@@ -13,10 +13,14 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private AudioClip _clip;
 
-    //5.28 c key pressed power up move to player 
+    
     private Player _player;
     private Vector3 direction;
-    private float _speedC = 5; // when c key is pressed this moves the speed of the powerup
+    private float _speedC = 5;
+
+    //6.15
+    [SerializeField]
+    private GameObject _explosionPrefab;
 
 
     // Start is called before the first frame update
@@ -91,6 +95,16 @@ public class Powerup : MonoBehaviour
             
             Destroy(this.gameObject);
        }
+
+       //6.15
+       if (other.tag == "EnemyLaser"  || other.tag == "Laser")
+        {
+            Destroy(other.gameObject);
+            BoxCollider2D _boxCollider = GetComponent<BoxCollider2D>();
+            _boxCollider.enabled = false;
+            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(this.gameObject, 0.15f);
+        }
     }
 }
 

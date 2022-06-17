@@ -139,6 +139,7 @@ MonoBehaviour:
   _moveHorizontaly: 1
   _enemyShield: {fileID: 1918185036}
   _enemyShieldActive: 1
+  _enemyMissile: {fileID: 4874580168064946699, guid: 9f14583c20fcfae49bbf1e66736f23c7, type: 3}
 --- !u!212 &1661182752841520732
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -134,39 +134,35 @@ public class Enemy : MonoBehaviour
                 Destroy(this.gameObject, 2.6f);
             }      
 
-            
-
-
-
-           
-
 
         }
-        if (other.tag == "Laser")
-        {
+           if (other.tag == "Laser")
+           {
             Destroy(other.gameObject);
 
-            if (_enemyShieldActive)
-            {
+              if (_enemyShieldActive)
+              {
                 _enemyShield.SetActive(false);
                 _enemyShieldActive = false;
-            }
-            else
-            {
+              }
+              else
+              {
 
                 if (_player != null)
                 {
                     _player.AddScore(10);
                 }
-                _anim.SetTrigger("OnEnemyDeath");
-                _speed = 0;
-                _audioSource.Play();
-                _isAlive = false;
-                Destroy(GetComponent<Collider2D>());
-                Destroy(this.gameObject, 2.6f);
-            }
+                 _anim.SetTrigger("OnEnemyDeath");
+                 _speed = 0;
+                 _audioSource.Play();
+                 _isAlive = false;
+                 Destroy(GetComponent<Collider2D>());
+                 Destroy(this.gameObject, 2.6f);
+              }
+
+
          
-        }
+           }
 
         
 
@@ -204,10 +200,10 @@ public class Enemy : MonoBehaviour
           _enemyShieldActive = true;
        }
        else
-        {
+       {
             _enemyShield.SetActive(false);
             _enemyShieldActive = false;
-        }
+       }
         
 
         
