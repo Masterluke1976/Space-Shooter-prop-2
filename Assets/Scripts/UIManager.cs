@@ -19,11 +19,11 @@ public class UIManager : MonoBehaviour
 
     private GameManager _gameManager;
 
-    //5.10
+    
     [SerializeField]
     private Text _ammoText;
 
-    //5.24
+    
     [SerializeField]
     private int _maxAmmo = 15;
 

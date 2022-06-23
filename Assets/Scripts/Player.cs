@@ -59,6 +59,12 @@ public class Player : MonoBehaviour
 
     private UIManager _uiManager;
 
+    
+    private float _sprintSpeed = 10f;
+    private float _normalSpeed = 3.5f;
+
+    
+
 
 
     // Start is called before the first frame update
@@ -74,6 +80,8 @@ public class Player : MonoBehaviour
         ThrusterSlider.maxValue = _maxFuel;
 
         _currentLasers = _totalLasers;
+
+        
 
         
         if (_spawnManager == null)
@@ -101,7 +109,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         
-       // Calculatespeed();
+       
         
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -109,7 +117,7 @@ public class Player : MonoBehaviour
         }
 
 
-        //6.14
+        
         if (Input.GetKey(KeyCode.LeftShift) && _currentFuel > 0) 
         {
             Debug.Log("Stamina down");
@@ -120,7 +128,7 @@ public class Player : MonoBehaviour
         }
         else 
         {
-            _speed = 3.5f;
+            _speed = _normalSpeed;
             _currentFuel += Time.deltaTime;
         }
 
@@ -333,6 +341,21 @@ public class Player : MonoBehaviour
             CheckLives();
         }
 
+    }
+
+    
+    public void NegativeSpeed()
+    {
+        StartCoroutine(NegativeSpeedCooldown());
+        _normalSpeed /= _speedMultiplier;
+
+    }
+
+    IEnumerator NegativeSpeedCooldown()
+    {
+        yield return new WaitForSeconds(5);
+        _normalSpeed *= _speedMultiplier;
+        
     }
 
     

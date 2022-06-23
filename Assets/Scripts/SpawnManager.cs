@@ -18,6 +18,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _wave2;
     [SerializeField]
     private GameObject[] _wave3;
+    [SerializeField]
+    private GameObject[] _wave4;
 
     private int _currentWave = 1;
 
@@ -59,7 +61,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //6.15
+      
       RestartPowerUpSpawnRoutine();
     }
 
@@ -103,7 +105,17 @@ public class SpawnManager : MonoBehaviour
                         yield return new WaitForSeconds(5.0f);
                     }
                     break;
-                
+                case 4:
+
+                    foreach (GameObject enemy in _wave4)
+                    {
+                        postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
+                        GameObject newEnemy = Instantiate(enemy, postToSpawn, Quaternion.identity);
+                        newEnemy.transform.parent = _enemyContainer.transform;
+                        yield return new WaitForSeconds(5.0f);
+                    }
+                    break;
+
                 default:
                     Debug.Log("No more Waves");
                     break;
@@ -124,11 +136,16 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
-            int randomPowerUp = Random.Range(0, powerups.Length);
+
+            
+            int randomPowerUp = Random.Range(0, 5);
+
+
+            //int randomPowerUp = Random.Range(0, powerups.Length);
             Instantiate(powerups[randomPowerUp], postToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
 
-            //6.15
+            
             _randomNumber = Random.Range(0, _total);
 
             if (_stopSpawning == true)
@@ -157,7 +174,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    //6.15
+    
     private void RestartPowerUpSpawnRoutine()
     {
         if (_powerUpSpawn == true)

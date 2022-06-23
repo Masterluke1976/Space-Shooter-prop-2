@@ -135,10 +135,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
-  _laserPrefab: {fileID: 1137102124625574934, guid: 12c6413e8ae76494cb430adaa36a4567, type: 3}
+  _laserPrefab: {fileID: 1652975490318690584, guid: f2daab673f4bed44c9ccf04d7fbd43a4, type: 3}
   _moveHorizontaly: 1
   _enemyShield: {fileID: 1918185036}
-  _enemyShieldActive: 1
+  _enemyShieldActive: 0
   _enemyMissile: {fileID: 4874580168064946699, guid: 9f14583c20fcfae49bbf1e66736f23c7, type: 3}
 --- !u!212 &1661182752841520732
 SpriteRenderer:

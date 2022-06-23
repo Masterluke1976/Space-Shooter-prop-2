@@ -34,7 +34,7 @@ public class Powerup : MonoBehaviour
     void Update()
     {
         //5.28 get key code for C
-        if (Input.GetKey(KeyCode.C)) 
+        if (Input.GetKey(KeyCode.C) && _player != null) 
         {
             direction = (_player.transform.position) - transform.position; 
             direction = direction.normalized; 
@@ -83,6 +83,12 @@ public class Powerup : MonoBehaviour
                     case 4:
                         player.HealthActive();
                         break;
+
+                    //6.22
+                    case 5:
+                        player.NegativeSpeed();
+                        break;
+
                    
                        
                        
