@@ -14,8 +14,7 @@ public class HomingMissile : MonoBehaviour
     private float _speed = 3f;
 
     
-    //turn 
-    //move forward 
+    
 
 
     // Start is called before the first frame update

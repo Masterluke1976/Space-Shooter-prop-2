@@ -33,7 +33,18 @@ public class Enemy : MonoBehaviour
 
     private bool _fireBackwards = false;
 
+    //6.23
+    private Vector3 _playerPos = Vector3.zero;
+
     
+    private bool _ramme = false;
+    private bool _arrived = false;
+    private float _ramSpeed = 5f;
+    private float _ramDistance = 5f;
+
+    private float _randomX;
+
+
 
 
     // Start is called before the first frame update
@@ -90,6 +101,12 @@ public class Enemy : MonoBehaviour
             }
         }
         FireLaser();
+        //6.27
+        if (_player != null)
+        {
+            RamPlayer();
+        }
+        
 
 
        
@@ -103,10 +120,25 @@ public class Enemy : MonoBehaviour
         if (transform.position.y < -10f)
         {
             
-           float randomX = Random.Range(-8f, 8f);
-           transform.position = new Vector3(randomX, 10, 0);
+            _randomX = Random.Range(-8f, 8f);
+           transform.position = new Vector3(_randomX, 10, 0);
+        }
+        //6.27
+        float distance = Vector3.Distance(transform.position, _playerPos);
+        if (distance < 0.1f)
+        {
+            _arrived = true;
+        }
+        if (_ramme && !_arrived)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _playerPos, _ramSpeed * Time.deltaTime);
+        }
+        else if (!_ramme || (_ramme && _arrived))
+        {
+            transform.Translate(new Vector3(_randomX, -1, 0) * _speed * Time.deltaTime);
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -165,7 +197,11 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.6f);
         }
+
+        
+        
     }
+    
         
     void MoveHorizontaly()
     {
@@ -224,6 +260,23 @@ public class Enemy : MonoBehaviour
         
 
         
+    }
+
+    //6.27
+    void RamPlayer()
+    {
+        float dist = Vector3.Distance(transform.position, _player.transform.position);
+        if (!_ramme)
+        {
+            if (dist <= _ramDistance)
+            {
+                _ramme = true;
+                _playerPos = _player.transform.position;
+            }
+        }
+         
+         
+
     }
 
 
