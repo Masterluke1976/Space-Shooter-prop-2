@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     private bool _moveRight = false;
     private float _horizontalSpeed = 2;
 
-    //5.25 enemy shield
+    
     [SerializeField]
     private GameObject _enemyShield;
     [SerializeField]
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
 
     private bool _fireBackwards = false;
 
-    //6.23
+    
     private Vector3 _playerPos = Vector3.zero;
 
     
@@ -159,7 +159,6 @@ public class Enemy : MonoBehaviour
 
         }
            if (other.tag == "Laser")
-
            {
 
             if (other.transform.GetComponent<Laser>().IsEnemyLaser() == false)
@@ -167,8 +166,6 @@ public class Enemy : MonoBehaviour
                 Destroy(other.gameObject);
                 Damage();
             }
-            
-              
          
            }
 
@@ -241,7 +238,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //5.25 enemyshield
+    
 
     private void EnableShield()
     {
@@ -262,7 +259,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    //6.27
+    
     void RamPlayer()
     {
         float dist = Vector3.Distance(transform.position, _player.transform.position);

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1137102124625574935}
-  - component: {fileID: 6860748377842730699}
   m_Layer: 0
   m_Name: Enemy_Laser
   m_TagString: EnemyFire
@@ -34,19 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6860748377842730699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137102124625574934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db27980d5495fbd4898adbf0055b67ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 8
 --- !u!1001 &1137102124608565809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57,6 +43,10 @@ PrefabInstance:
     - target: {fileID: 1149336831058104478, guid: cb07b307f32afd64586ef85fd3dbb200, type: 3}
       propertyPath: m_Name
       value: Laser_Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149336831058104478, guid: cb07b307f32afd64586ef85fd3dbb200, type: 3}
+      propertyPath: m_TagString
+      value: EnemyFire
       objectReference: {fileID: 0}
     - target: {fileID: 8089228880109524078, guid: cb07b307f32afd64586ef85fd3dbb200, type: 3}
       propertyPath: m_RootOrder

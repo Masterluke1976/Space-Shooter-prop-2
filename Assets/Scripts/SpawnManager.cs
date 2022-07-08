@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
 
     private bool _stopSpawning = false;
 
-    //6.15
+    
     [SerializeField]
     private int[] _table = { 10, 10, 10, 50, 20 }; // triple shot, speed, shield, ammo, health
     [SerializeField]

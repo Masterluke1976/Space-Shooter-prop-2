@@ -18,7 +18,7 @@ public class Powerup : MonoBehaviour
     private Vector3 direction;
     private float _speedC = 5;
 
-    //6.15
+    
     [SerializeField]
     private GameObject _explosionPrefab;
 
@@ -26,14 +26,14 @@ public class Powerup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // get the player component
+       
        _player = GameObject.Find("Player").GetComponent<Player>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //5.28 get key code for C
+        
         if (Input.GetKey(KeyCode.C) && _player != null) 
         {
             direction = (_player.transform.position) - transform.position; 
@@ -46,9 +46,6 @@ public class Powerup : MonoBehaviour
 
         }
         
-        
-        //transform.Translate(Vector3.down * _speed * Time.deltaTime);
-
         if (transform.position.y < -4.5f)
         {
             Destroy(this.gameObject);
@@ -84,7 +81,7 @@ public class Powerup : MonoBehaviour
                         player.HealthActive();
                         break;
 
-                    //6.22
+                    
                     case 5:
                         player.NegativeSpeed();
                         break;
@@ -102,8 +99,8 @@ public class Powerup : MonoBehaviour
             Destroy(this.gameObject);
        }
 
-       //6.15
-       if (other.tag == "EnemyLaser"  || other.tag == "Laser")
+       
+       if (other.tag == "EnemyFire")
         {
             Destroy(other.gameObject);
             BoxCollider2D _boxCollider = GetComponent<BoxCollider2D>();

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7741313481117344366
 Transform:
   m_ObjectHideFlags: 0
@@ -122,7 +122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4769536459440396412
 Transform:
   m_ObjectHideFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7568966651119500500
 Transform:
   m_ObjectHideFlags: 0
@@ -417,10 +417,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.029257178}
+  m_Offset: {x: 0.009302303, y: 0.029257178}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -431,7 +431,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.266368, y: 2.8640692}
+  m_Size: {x: 0.7221819, y: 2.8640692}
   m_EdgeRadius: 0
 --- !u!50 &7139807300067584467
 Rigidbody2D:
@@ -448,7 +448,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -560,7 +560,7 @@ Animator:
   m_GameObject: {fileID: 5835147290816735216}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f1b81bfee1c0f5642914f31a000f9aac, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4ab81ceacc7ce2343b6c284c1563e19a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -582,9 +582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18e0c00f17abb548941af91c259a4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _laserPreFab: {fileID: 0}
+  _laserPreFab: {fileID: 6074860964136555943, guid: 3b6a11ace7cf85c419af623777682d78, type: 3}
   _audio: {fileID: 5705514911413339675}
   _anim: {fileID: 9016464177387048547}
-  _damage1: {fileID: 4323167414243387780}
-  _damage2: {fileID: 5016171138274696741}
-  _damage3: {fileID: 518691011760896340}
+  _leftBossEngine: {fileID: 5016171138274696741}
+  _rightBossEngine: {fileID: 4323167414243387780}
+  _centerBossEngine: {fileID: 518691011760896340}

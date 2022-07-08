@@ -15,26 +15,32 @@ public class EnemyBoss : MonoBehaviour
     private AudioSource _audio;
     [SerializeField]
     private Animator _anim;
+    
     private Player _player;
     private int _health;
-    private bool _isAlive;
-    [SerializeField]
-    private GameObject _damage1;
-    [SerializeField]
-    private GameObject _damage2;
-    [SerializeField]
-    private GameObject _damage3;
+    private bool _isAlive = true;
+    
     private SpawnManager _spawnManager;
+
+    
+    private int _lives = 5;
+    [SerializeField]
+    private GameObject _leftBossEngine, _rightBossEngine, _centerBossEngine;
+
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 11.5f, 0);
         _shotsfired = 0;
         _health = 100;
-        _spawnManager = GameObject.Find("Spawn_Manger").GetComponent<SpawnManager>();
-        _player = GameObject.Find("PLayer").GetComponent<Player>();
+        //_spawnManager = GameObject.Find("Spawn_Manger").GetComponent<SpawnManager>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
         _anim = GetComponent<Animator>();
         _audio = GetComponent<AudioSource>();
+        if (_player == null)
+        {
+            Debug.LogError("The Player is null on the Boss Enemy");
+        }
         if(_anim == null)
         {
             Debug.LogError("Animator is NUll on Enemy Boss");
@@ -42,7 +48,8 @@ public class EnemyBoss : MonoBehaviour
         if( _audio == null)
         {
             Debug.LogError("Animator is NUll on Enemy Boss");
-        } 
+        }
+       
 
     }
 
@@ -54,27 +61,22 @@ public class EnemyBoss : MonoBehaviour
             
     }
 
-    IEnumerator ShootingRoutine()
-    {
-        yield return new WaitForSeconds(2.2f);
-        while(_arrived == true && _shotsfired < 5)
-        {
-            ShootingA();
-            yield return new WaitForSeconds(5.0f);
-            //ShootingB();
-            //yield return new WaitForSeconds(5.0f);
-        }
-    }
+   
 
     void ShootingA()
     {
         if (_arrived == true && _canfire < Time.time && _isAlive == true)
-            _firerate = Random.Range(0.3f, 0.75f);
-            _canfire = Time.time - _firerate;
+        {
+            _firerate = Random.Range(0.1f, 0.5f);
+            _canfire = Time.time + _firerate;
             Vector3 direction = transform.position - _player.transform.position;
             direction.Normalize();
-            float rotation = Mathf.Atan2(direction.x, direction.x)* Mathf.Rad2Deg;
-            GameObject bossLaser = Instantiate(_laserPreFab, transform.position, Quaternion.Euler(0, 0, rotation - 9));
+            float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            GameObject bossLaser = Instantiate(_laserPreFab, transform.position, Quaternion.Euler(0, 0, rotation - 90));
+          
+        }
+        
+
     }
 
     void Movement()
@@ -95,13 +97,28 @@ public class EnemyBoss : MonoBehaviour
     {
         if (other.tag == "Laser")
         {
-            Damage(5);
+            Damage(50);
             Destroy(other.gameObject);
         }
     }
     void Damage(int damageTaken)
     {
         _health -= damageTaken;
+        
+        if (_health < 75)
+        {
+            _leftBossEngine.SetActive(true);
+
+        }
+        if (_health < 50)
+        {
+            _rightBossEngine.SetActive(true);
+
+        }
+        if (_health < 30)
+        {
+           _centerBossEngine.SetActive(true);
+        }
         if (_health < 0)
         {
             _isAlive = false;
@@ -110,11 +127,23 @@ public class EnemyBoss : MonoBehaviour
             _anim.SetTrigger("OnEmemyDeath");
             _audio.Play();
             Destroy(GetComponent<Collider2D>());
+            Destroy(_leftBossEngine);
+            Destroy(_rightBossEngine);
+            Destroy(_centerBossEngine);
             Destroy(this.gameObject, 2.8f);
         }
+          
     }
 
         
+   
+
+    
+
+
+
+
+
 
 
 }
