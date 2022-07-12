@@ -27,7 +27,7 @@ public class SpawnManager : MonoBehaviour
 
     
     [SerializeField]
-    private int[] _table = { 10, 10, 10, 50, 20 }; // triple shot, speed, shield, ammo, health
+    private int[] _table = { 10, 10, 10, 50, 10, 10 }; // triple shot, speed, shield, ammo, health, multishot
     [SerializeField]
     private int _total, _randomNumber;
     [SerializeField]
@@ -54,6 +54,8 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
+        //7.11
+        StartCoroutine(SpawnRarePowerupRoutine());
 
         
     }
@@ -171,6 +173,19 @@ public class SpawnManager : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    //7.11
+    IEnumerator SpawnRarePowerupRoutine()
+    {
+        yield return new WaitForSeconds(2.0f);
+        while (_stopSpawning == false)
+        {
+            Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
+            int randomPowerUp = Random.Range(0, 7);
+            Instantiate(powerups[randomPowerUp], postToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
         }
     }
 

@@ -207,6 +207,7 @@ MonoBehaviour:
   _laserSoundClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _shieldRenderer: {fileID: 962787831}
   ThrusterSlider: {fileID: 917402644}
+  _multiShot: {fileID: 5859499972038479620, guid: 3bb6f52fb491e7848a094b1eace5acc3, type: 3}
 --- !u!212 &181763659
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -267,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181763657}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4, y: -1.32, z: 0}
+  m_LocalPosition: {x: 0.55, y: -1.32, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -668,6 +669,7 @@ MonoBehaviour:
   - {fileID: 6196931929590560916, guid: 32e3f85d44fcef647b8ed399e2b2c16b, type: 3}
   - {fileID: 9180686972248117009, guid: 0e6c3f28d337f184e82f0cf95b88cb99, type: 3}
   - {fileID: 5670353023453530187, guid: 76fbc70a51fa70a4a8122045b715d3d0, type: 3}
+  - {fileID: 3804135088805782491, guid: d971b668a4bb66f408ede44050456f84, type: 3}
   _wave1:
   - {fileID: 1533797852851189112, guid: 4c5655ceebba394409629e9f4f4673c1, type: 3}
   - {fileID: 1533797852851189112, guid: 4c5655ceebba394409629e9f4f4673c1, type: 3}

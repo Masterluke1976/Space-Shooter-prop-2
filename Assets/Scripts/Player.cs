@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     private bool _isShielsdActive = false;
 
 
-    
+
 
     [SerializeField]
     private AudioClip _laserSoundClip;
@@ -59,9 +59,14 @@ public class Player : MonoBehaviour
 
     private UIManager _uiManager;
 
-    
+
     private float _sprintSpeed = 10f;
     private float _normalSpeed = 3.5f;
+
+    //7.11
+    private bool _isMultiShotActive = false;
+    [SerializeField]
+    private GameObject _multiShot;
 
     
 
@@ -184,6 +189,15 @@ public class Player : MonoBehaviour
              {
                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
              }
+
+             //7.11
+             else if (_isMultiShotActive)
+             {
+                Instantiate(_multiShot, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+             }
+
+
+
             else
             {
               Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
@@ -358,15 +372,30 @@ public class Player : MonoBehaviour
         
     }
 
-    
+    //7.11
+
+    public void MultiShotActive()
+    {
+        _isMultiShotActive = true;
+        _isTripleShotActive = false;
+        StartCoroutine(SpawnRarePowerDownRoutine());
+    }
+    IEnumerator SpawnRarePowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isMultiShotActive = false;
+
+    }
+
 
     
 
-    
 
 
-   
 
-    
-    
+
+
+
+
+
 }

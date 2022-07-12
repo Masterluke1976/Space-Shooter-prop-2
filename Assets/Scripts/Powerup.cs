@@ -8,7 +8,7 @@ public class Powerup : MonoBehaviour
     private float _speed = 3.0f;
     
     [SerializeField]
-    private int powerupID;  // 0 = Triple Shot  1 = Speed  2 = shields 3 = ammo powerup 
+    private int powerupID;  // 0 = Triple Shot  1 = Speed  2 = shields 3 = ammo powerup 4 = health 5 = neg speed 6 = multi shot
 
     [SerializeField]
     private AudioClip _clip;
@@ -85,6 +85,12 @@ public class Powerup : MonoBehaviour
                     case 5:
                         player.NegativeSpeed();
                         break;
+
+                    //7.11
+                    case 6:
+                        player.MultiShotActive();
+                        break;
+                    
 
                    
                        
