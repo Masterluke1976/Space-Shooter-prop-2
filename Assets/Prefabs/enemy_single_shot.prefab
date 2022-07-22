@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2881303086795682693}
   - component: {fileID: 161672214430804064}
   - component: {fileID: -3439281787133046328}
+  - component: {fileID: 8916476780410402856}
   m_Layer: 0
   m_Name: enemy_single_shot
   m_TagString: EnemyFire
@@ -133,3 +134,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.67825663, y: 2.8437247}
   m_EdgeRadius: 0
+--- !u!114 &8916476780410402856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4571400243775127072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5e028c41161bb49b3e22856d071557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 8

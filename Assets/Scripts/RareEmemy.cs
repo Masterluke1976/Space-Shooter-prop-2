@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class RareEmemy : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 4.0f;
     private float _fireRate = 1.0f;
     private float _canFire = -1;
+    private float _horizontalSpeed = 2;
     private float _ramSpeed = 5f;
     private float _ramDistance = 5f;
     private float _randomX;
-    private float _horizontalSpeed = 2;
 
     private bool _isAlive = true;
     [SerializeField]
@@ -23,7 +23,9 @@ public class Enemy : MonoBehaviour
     private bool _arrived = false;
     private bool _fireBackwards = false;
 
-   
+    private Player _player;
+    private Animator _anim;
+
     private AudioSource _audioSource;
 
     [SerializeField]
@@ -33,18 +35,16 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _enemyMissile;
 
-    private Player _player;
-    private Animator _anim;
 
     private Vector3 _playerPos = Vector3.zero;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = GetComponent<AudioSource>();
-        
+
         if (_player == null)
         {
             Debug.LogError("The Player is NULL");
@@ -61,33 +61,43 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(SwitchDirectionRoutine());
         }
-        
+
         if (_enemyShield != null)
         {
             EnableShield();
         }
-         
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         CalculateMovement();
         if (_moveHorizontaly == true)
         {
             MoveHorizontaly();
         }
-       
+        if (_player != null)
+        {
+            if (transform.position.y > _player.transform.position.y)
+            {
+                _fireBackwards = false;
+            }
+            else
+            {
+                _fireBackwards = true;
+            }
+        }
         FireLaser();
-        
+
         if (_player != null)
         {
             RamPlayer();
         }
-         
+
     }
-    
+
 
     void CalculateMovement()
     {
@@ -95,9 +105,9 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y < -10f)
         {
-            
+
             _randomX = Random.Range(-1f, 1f);
-           transform.position = new Vector3(_randomX, 10, 0);
+            transform.position = new Vector3(_randomX, 10, 0);
         }
         if (transform.position.x >= 11.3f)
         {
@@ -127,27 +137,21 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         if (other.tag == "Player")
         {
-            
+
             Player player = other.transform.GetComponent<Player>();
             if (player != null)
             {
                 player.Damage();
             }
-            if(other.tag == "Player")
+            if (other.tag == "Player")
             {
                 Damage();
             }
-          
-        }
-        if (other.tag == "PlayerMissile")
-        {
-            Damage();
-        }
 
-
+        }
         if (other.tag == "Laser")
         {
 
@@ -156,7 +160,12 @@ public class Enemy : MonoBehaviour
                 Destroy(other.gameObject);
                 Damage();
             }
-         
+
+        }
+
+        if (other.tag == "PlayerMissile")
+        {
+            Damage();
         }
 
     }
@@ -181,10 +190,10 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.6f);
         }
-   
+
     }
-    
-        
+
+
     void MoveHorizontaly()
     {
         if (_moveRight == true)
@@ -227,7 +236,7 @@ public class Enemy : MonoBehaviour
             {
                 lasers[i].AssignEnemyLaser(true);
                 lasers[i].AssignBackwardsFire(true);
-                
+
 
             }
 
@@ -246,25 +255,26 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
+
+
     private void EnableShield()
     {
         int randomPick = Random.Range(0, 6);
 
-       if(randomPick <= 4)
-       {
-          _enemyShield.SetActive(true);
-          _enemyShieldActive = true;
-       }
-       else
-       {
+        if (randomPick <= 4)
+        {
+            _enemyShield.SetActive(true);
+            _enemyShieldActive = true;
+        }
+        else
+        {
             _enemyShield.SetActive(false);
             _enemyShieldActive = false;
-       }
-            
+        }
+
     }
 
-    
+
     void RamPlayer()
     {
         float dist = Vector3.Distance(transform.position, _player.transform.position);
@@ -276,7 +286,9 @@ public class Enemy : MonoBehaviour
                 _playerPos = _player.transform.position;
             }
         }
-        
+
     }
- 
+
 }
+
+

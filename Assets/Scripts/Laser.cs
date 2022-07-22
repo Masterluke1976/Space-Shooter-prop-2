@@ -6,6 +6,7 @@ public class Laser : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 8.0f;
+
     private bool _isEnemyLaser = false;
     private bool _isBackwardsFire =false;
 
@@ -29,7 +30,7 @@ public class Laser : MonoBehaviour
     {
                 
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
-        //Debug.Log("Called");
+        
          if (transform.position.y > 8f)
          {
 

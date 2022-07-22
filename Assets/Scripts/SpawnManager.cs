@@ -9,9 +9,10 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
-
     [SerializeField]
-    private GameObject[] powerups;
+    private GameObject _rareEnemy;
+    [SerializeField]
+    private GameObject[] _powerups;
     [SerializeField]
     private GameObject[] _wave1;
     [SerializeField]
@@ -22,27 +23,20 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _wave4;
 
     private int _currentWave = 1;
-
-    private bool _stopSpawning = false;
-
-    
     [SerializeField]
-    private int[] _table = { 10, 10, 10, 50, 10, 10 }; // triple shot, speed, shield, ammo, health, multishot
+    private int[] _table = { 10, 10, 10, 30, 10, 10, 20 }; // triple shot, speed, shield, ammo, health, multishot, missile
     [SerializeField]
     private int _total, _randomNumber;
-    [SerializeField]
-    private List<GameObject> _powerUps;
 
+    private bool _stopSpawning = false;
     private bool _powerUpSpawn;
 
     
 
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        //6.15
         foreach(var item in _table)
         {
             _total += item;
@@ -54,10 +48,12 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
-        //7.11
         StartCoroutine(SpawnRarePowerupRoutine());
+        StartCoroutine(SpawnRareEnemyRoutine());
 
-        
+        //7.20
+        StartCoroutine(MissilePowerUpRoutine());
+    
     }
 
     // Update is called once per frame
@@ -131,6 +127,20 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+    //7.12
+    IEnumerator SpawnRareEnemyRoutine()
+    {
+        yield return new WaitForSeconds(2.0f);
+        while (_stopSpawning == false)
+        {
+            Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
+            GameObject newEnemy = Instantiate(_rareEnemy, postToSpawn, Quaternion.identity);
+            newEnemy.transform.parent = _enemyContainer.transform;
+            yield return new WaitForSeconds(6.0f);
+        }
+    }
+    
+
     IEnumerator SpawnPowerupRoutine()
     {
         yield return new WaitForSeconds(3.0f);
@@ -140,11 +150,11 @@ public class SpawnManager : MonoBehaviour
             Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
 
             
-            int randomPowerUp = Random.Range(0, 5);
+            int randomPowerUp = Random.Range(0, 6);
 
 
             //int randomPowerUp = Random.Range(0, powerups.Length);
-            Instantiate(powerups[randomPowerUp], postToSpawn, Quaternion.identity);
+            Instantiate(_powerups[randomPowerUp], postToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
 
             
@@ -162,7 +172,7 @@ public class SpawnManager : MonoBehaviour
                     if (_randomNumber <= _table[i])
                     {
                         Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
-                        Instantiate(_powerUps[i], posToSpawn, Quaternion.identity);
+                        Instantiate(_powerups[i], posToSpawn, Quaternion.identity);
                         _powerUpSpawn = true;
 
                         yield break;
@@ -184,7 +194,7 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
             int randomPowerUp = Random.Range(0, 7);
-            Instantiate(powerups[randomPowerUp], postToSpawn, Quaternion.identity);
+            Instantiate(_powerups[randomPowerUp], postToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
         }
     }
@@ -196,6 +206,19 @@ public class SpawnManager : MonoBehaviour
         {
             _powerUpSpawn = false;
             StartCoroutine(SpawnPowerupRoutine());
+        }
+    }
+
+    //7.20
+    IEnumerator MissilePowerUpRoutine()
+    {
+        yield return new WaitForSeconds(2.0f);
+        while (_stopSpawning == false)
+        {
+            Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 10, 0);
+            int randomPowerUp = Random.Range(0, 8);
+            Instantiate(_powerups[randomPowerUp], postToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
         }
     }
 

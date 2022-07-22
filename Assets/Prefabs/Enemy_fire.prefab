@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1033859540889259500}
-  - component: {fileID: 2144985014693721976}
   m_Layer: 0
   m_Name: Enemy_fire
   m_TagString: EnemyFire
@@ -34,19 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2144985014693721976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1652975490318690584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5e028c41161bb49b3e22856d071557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 8
 --- !u!1001 &890324267751752443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,8 +88,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8916476780410402856, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
+--- !u!1 &3687306223974710491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4571400243775127072, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
+  m_PrefabInstance: {fileID: 890324267751752443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9108144029604680347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3687306223974710491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db27980d5495fbd4898adbf0055b67ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 8
 --- !u!4 &4888556681983056428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5732155792207288535, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
@@ -116,10 +121,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1033859540889259500}
     m_Modifications:
-    - target: {fileID: -3439281787133046328, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4571400243775127072, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
       propertyPath: m_Name
       value: enemy_single_shot
@@ -168,10 +169,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8916476780410402856, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
 --- !u!4 &1688031519022233927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5732155792207288535, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
   m_PrefabInstance: {fileID: 6404579277635658128}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7462819340997664688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4571400243775127072, guid: 5bdc798a445dd6843af46e93db16aab1, type: 3}
+  m_PrefabInstance: {fileID: 6404579277635658128}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5335795576753476464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7462819340997664688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db27980d5495fbd4898adbf0055b67ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 8

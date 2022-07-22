@@ -9,41 +9,42 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
-    private Image _LivesImg;
-    [SerializeField]
-    private Sprite[] _livesSprites;
-    [SerializeField]
     private Text _gameOverText;
     [SerializeField]
     private Text _restartText;
-
-    private GameManager _gameManager;
-
-    
     [SerializeField]
     private Text _ammoText;
 
-    
+    [SerializeField]
+    private Image _LivesImg;
+
+    [SerializeField]
+    private Sprite[] _livesSprites;
+   
+    private GameManager _gameManager;
+
     [SerializeField]
     private int _maxAmmo = 15;
 
     [SerializeField]
     private Slider _slider;
 
-   
-    
-   
+    //7.20 tonight
+    [SerializeField]
+    private Text _missileText;
+    private int _missileAmmo = 3;
+    private int _missileMaxAmmo = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         _scoreText.text = "Score:" + 0;
-
         _ammoText.text = "Ammo:" + 15 + "/" + _maxAmmo; 
-
-
         _gameOverText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+
+        //7.20 tonight
+        _missileText.text = "Ammo: " + _missileMaxAmmo + "/" + _missileAmmo;
 
         if (_gameManager == null)
         {
@@ -72,9 +73,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    
-
-
     void GameOverSequence()
     {
         _gameManager.GameOver();
@@ -98,12 +96,33 @@ public class UIManager : MonoBehaviour
     public void UpdateSlider(float fuel)
     {
         _slider.value = fuel;
+
     }
 
-    
+    //7.20 tonight
+    public void MaxMissilePickup(int pickup)
+    {
+        if (_missileAmmo >= 5)
+        {
+            _missileAmmo = 5;
+        }
+        else
+        {
+            _missileAmmo += pickup;
+            if (_missileAmmo + pickup > 5)
+            {
+                _missileAmmo = 3;
+            } 
+        }
 
-   
-    
+        _missileText.text = "Ammo: " + _missileMaxAmmo + "/" + _missileAmmo;
 
-    
+    }
+
+    public void MissileUpdate(int missileshot)
+    {
+        _missileAmmo = missileshot;
+        _missileText.text = "Ammo: " + _missileMaxAmmo + "/" + _missileAmmo;
+    }
+  
 }

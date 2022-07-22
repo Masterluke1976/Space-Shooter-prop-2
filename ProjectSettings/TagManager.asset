@@ -8,6 +8,8 @@ TagManager:
   - Laser
   - Boss
   - EnemyFire
+  - EnemyLaser
+  - PlayerMissile
   layers:
   - Default
   - TransparentFX

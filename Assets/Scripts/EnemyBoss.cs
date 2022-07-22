@@ -5,27 +5,31 @@ using UnityEngine;
 public class EnemyBoss : MonoBehaviour
 {
     private int _speed = 2;
+    private int _health;
+    private int _shotsfired;
+    private int _lives = 5;
+
     private bool _arrived = false;
+    private bool _isAlive = true;
+
     [SerializeField]
     private GameObject _laserPreFab;
+    [SerializeField]
+    private GameObject _leftBossEngine, _rightBossEngine, _centerBossEngine;
+
     private float _firerate = 0.5f;
     private float _canfire = -1f;
-    private int _shotsfired;
+    
     [SerializeField]
     private AudioSource _audio;
+
     [SerializeField]
     private Animator _anim;
     
     private Player _player;
-    private int _health;
-    private bool _isAlive = true;
     
     private SpawnManager _spawnManager;
 
-    
-    private int _lives = 5;
-    [SerializeField]
-    private GameObject _leftBossEngine, _rightBossEngine, _centerBossEngine;
 
     // Start is called before the first frame update
     void Start()
@@ -122,8 +126,6 @@ public class EnemyBoss : MonoBehaviour
         if (_health < 0)
         {
             _isAlive = false;
-            //_player.Scorefromenemy(250);
-            //_spawnManager.BossDestroy();
             _anim.SetTrigger("OnEmemyDeath");
             _audio.Play();
             Destroy(GetComponent<Collider2D>());

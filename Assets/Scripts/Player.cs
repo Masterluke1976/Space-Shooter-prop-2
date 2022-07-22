@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
+    //private float _sprintSpeed = 10f;
+    private float _normalSpeed = 3.5f;
 
 
     [SerializeField]
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour
     private GameObject _ShieldVisualizer;
     [SerializeField]
     private GameObject _leftEngine, _rightEngine;
+    [SerializeField]
+    private GameObject _multiShot;
 
 
     [SerializeField]
@@ -40,6 +44,7 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShielsdActive = false;
+    private bool _isMultiShotActive = false;
 
 
 
@@ -47,29 +52,25 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserSoundClip;
     private AudioSource _audioSource;
-
     [SerializeField]
     private SpriteRenderer _shieldRenderer;
-
     private CameraShake _camerShake;
-
     private SpawnManager _spawnManager;
-
     public Slider ThrusterSlider;
-
     private UIManager _uiManager;
 
-
-    private float _sprintSpeed = 10f;
-    private float _normalSpeed = 3.5f;
-
-    //7.11
-    private bool _isMultiShotActive = false;
+    //7.17
     [SerializeField]
-    private GameObject _multiShot;
+    private GameObject _missilePreFab;
 
-    
+    //7.19 missile count 
+      private int _missileAmmo;
+      private int _missileMaxAmmo = 5;
+      private float _missileFireRate = 2.0f;
+      private float _missileCanFire = -1;
 
+    //7.20
+    private bool _isMissileActive = false;
 
 
     // Start is called before the first frame update
@@ -80,13 +81,12 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
         _camerShake = GameObject.Find("Main Camera").GetComponent<CameraShake>();
-
         _currentFuel = _maxFuel;
         ThrusterSlider.maxValue = _maxFuel;
-
         _currentLasers = _totalLasers;
 
-        
+        //7.20 tonight
+        _missileAmmo = 3;
 
         
         if (_spawnManager == null)
@@ -114,15 +114,12 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         
-       
-        
+
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
         }
 
-
-        
         if (Input.GetKey(KeyCode.LeftShift) && _currentFuel > 0) 
         {
             Debug.Log("Stamina down");
@@ -143,9 +140,15 @@ public class Player : MonoBehaviour
             _currentFuel = 5;
         }
 
+        //7.19
+        if (Input.GetKeyDown(KeyCode.F) && Time.time > _missileCanFire && _missileAmmo > 0)
+        {
+            _missileCanFire = Time.time + _missileFireRate;
+            Instantiate(_missilePreFab, transform.position, Quaternion.identity);
+            MissileAmmoUpdate(1);
+        }
     }
 
-    
 
     void CalculateMovement()
     {
@@ -153,10 +156,8 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-
         transform.Translate(direction * _speed * Time.deltaTime);
         
-
         if (transform.position.y >= 0)
         {
             transform.position = new Vector3(transform.position.x, 0, 0);
@@ -196,8 +197,6 @@ public class Player : MonoBehaviour
                 Instantiate(_multiShot, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
              }
 
-
-
             else
             {
               Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
@@ -208,6 +207,9 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    
+    
 
     public void Damage()
     {
@@ -236,13 +238,10 @@ public class Player : MonoBehaviour
 
         }
 
-
         _lives -= 1;
         _camerShake.CamShake();
 
-        CheckLives();
-       
-        
+        CheckLives();  
         _uiManager.UpdateLives(_lives);
 
         if (_lives < 1)
@@ -300,15 +299,11 @@ public class Player : MonoBehaviour
 
     public void ShieldsActive()
     {
-       
         _isShielsdActive = true;
-
         _shieldStrength = 3;
-
         _ShieldVisualizer.SetActive(true);
     }
 
-    
     IEnumerator ShieldHitVisual()
     {
         _shieldRenderer.color = Color.red;
@@ -322,7 +317,6 @@ public class Player : MonoBehaviour
         _uiManager.UpdateScore(_score);
     }
 
-   
     private void AmmoCount(int amount)
     {
         _currentLasers -= amount;
@@ -357,7 +351,6 @@ public class Player : MonoBehaviour
 
     }
 
-    
     public void NegativeSpeed()
     {
         StartCoroutine(NegativeSpeedCooldown());
@@ -387,15 +380,25 @@ public class Player : MonoBehaviour
 
     }
 
+    IEnumerator MissilePowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isMissileActive = false;
+    }
 
-    
+    //7.20 tonight missile powerup
+    public void MissilePickup()
+    {
+        int missileAdded = Random.Range(1, 3);
+        _missileAmmo += missileAdded;
+        _uiManager.MaxMissilePickup(missileAdded);
+    }
 
-
-
-
-
-
-
+    public void MissileAmmoUpdate(int missileshot)
+    {
+        _missileAmmo -= missileshot;
+        _uiManager.MissileUpdate(_missileAmmo);
+    }
 
 
 }
